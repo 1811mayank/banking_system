@@ -1,0 +1,21 @@
+<br>
+<div class="container content-center">
+    <div class="row justify-content-center">
+        <h1>Deposit here</h1>
+    </div>
+    <br>
+    <%= form_with  do |form| %>    
+        <div class="dropdown  btn-secondary ">
+            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                Select account you want to Deposit
+            </a>
+            <div class="dropdown-menu">
+                <% @accounts.each do |account|%>
+                    <%= link_to (account.number), "/deposit/#{account.id}", class:"dropdown-item custom-1", :remote => true  %>
+                <% end %>
+            </div>
+        </div>
+
+    <% end %>
+    <div class="deposit-money"></div>  
+</div>

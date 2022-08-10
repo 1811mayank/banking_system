@@ -1,0 +1,35 @@
+<br>
+<div class="container content-center">
+    <div class="row justify-content-center">
+        <h1>Account Balance details</h1>
+    </div>
+    <br>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <strong><%= "Account Number " %></strong>
+            </div>
+            <div class="col-4">
+            <strong><%= "Account Type " %> </strong>
+                
+            </div>
+            <div class="col-4">
+            <strong><%= "Balance"%></strong>
+                 
+            </div>
+        </div>
+    <% @accounts.each do |account|%>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <%= "#{account.number}" %> 
+            </div>
+            <div class="col-4">
+                <%= "#{account.type_of_account}" %> 
+            </div>
+            <div class="col-4">
+                <%= "#{account.balance}"%> 
+            </div>
+        </div>
+    <% end %>
+    <br><br>
+    <%= link_to ("Back"), accounts_path, class:"btn btn-outline-success my-2 my-sm-0"%> 
+</div>

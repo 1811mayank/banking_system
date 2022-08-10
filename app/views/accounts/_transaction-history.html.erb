@@ -1,0 +1,80 @@
+<br>
+<div class="container content-center">
+<div class="row">
+            <div class="col">
+                <%= "Account Number: #{@account.number} "%> 
+            </div>
+            <div class="col">
+                <%= "Balance: #{@account.balance}" %> 
+            </div>
+            <div class="col">
+                <%= "Type: #{@account.type_of_account}"%>
+            </div>
+</div>
+</div>
+<br><br>
+<div class="container content-center">
+    <div class="row justify-content-center">
+        <div class="col">
+            <%= "Type" %> 
+        </div>
+        <div class="col">
+            <%= "Medium" %> 
+        </div>
+        <div class="col">
+            <%= "Date"%> 
+        </div>
+        <div class="col">
+            <%= "Amount"%> 
+        </div>
+        <div class="col">
+            <%= "Balance"%> 
+        </div>
+        <div class="col">
+            <%= "From"%> 
+        </div>
+        <div class="col">
+            <%= "To"%> 
+        </div>
+        <div class="col">
+            <%= "Remark"%> 
+        </div>
+    </div>
+    <br>
+    
+    <% @account.transactions.each do |transaction|%>
+        <div class="row justify-content-center">
+            <div class="col">
+                <%=  transaction.type_of_transaction%> 
+            </div>
+            <div class="col">
+                <%= transaction.medium %> 
+            </div>
+            <div class="col">
+                <%=transaction.created_at%> 
+            </div>
+            <div class="col">
+                <%=transaction.amount%> 
+            </div>
+            <div class="col">
+                <%=transaction.balance%> 
+            </div>
+            <div class="col">
+                <%=transaction.from%> 
+            </div>
+            <div class="col">
+                <%=transaction.where%> 
+            </div>
+            <div class="col">
+                <%=transaction.remark%> 
+            </div>
+        </div>
+    <%end %>
+
+
+    <% if current_user.admin? %>
+        <%= link_to ("Back"), dashboard_index_path, class:"btn btn-outline-success my-2 my-sm-0"%>
+    <% else %>
+        <%= link_to ("Back"), accounts_path, class:"btn btn-outline-success my-2 my-sm-0"%> 
+    <% end %>
+</div>

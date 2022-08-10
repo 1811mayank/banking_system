@@ -1,0 +1,39 @@
+<br>
+<div class="container content-center">
+  <div class="row justify-content-center">
+    <h1>Welcome to user board</h1>
+  </div>
+  <br>
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <%= link_to ("Account Open"), new_account_path,  class:"btn btn-outline-success my-2 my-sm-0"%> 
+    </div>
+    <div class="col-4">
+      <%= link_to ("Details"), details_path,  class:"btn btn-outline-success my-2 my-sm-0"%> 
+    </div>
+    <div class="col-4">
+      <%= link_to ("View Balance"), balance_path,  class:"btn btn-outline-success my-2 my-sm-0"%> 
+    </div>
+  </div>
+  <br>
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <%= link_to ("Transaction History"), transactions_path,  class:"btn btn-outline-success"%> 
+    </div>
+    <div class="col-4">
+      <%= link_to ("Deposit"), deposit_path,  class:"btn btn-outline-success"%> 
+    </div>
+    <div class="col-4">
+      <%= link_to ("Withdrawal"), withdraw_path,  class:"btn btn-outline-success"%> 
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-4">
+      <%= link_to ("Transfer"), transfer_path,  class:"btn btn-outline-success"%> 
+    </div>
+    <div class="col-4">
+      <%= link_to ("Apply for loan"), new_loan_path,  class:"btn btn-outline-success"%> 
+    </div>
+  </div>
+</div>

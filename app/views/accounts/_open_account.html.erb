@@ -1,0 +1,18 @@
+<%= form_for @account do |f| %>
+  <div class="form-group">
+    <%= f.label :type_of_account ,"Account Type"%>
+    <%= f.select :type_of_account, [['Saving','Saving'],['Current','Current']], class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :branch_id ,"Select Branch you want to open account"%>
+    <%= f.select :branch_id, options_for_select([["Select One", ""], ["1.Koramangala",'1'], ["2.Electronic", '2'], ["3.North",'3'], ["4.South",'4'], ["5.West",'5'], ["6.East",'6'], ["7.Dommalurru",'7']]), :class => 'genForm_dropBox' %>
+    
+  </div>
+  <div class="form-group">
+    <%= f.label :balance ,"Opening Balance"%>
+    <%= f.number_field :balance,  class: 'form-control' %>
+  </div>
+  
+
+  <%= f.submit "Submit" %>
+<% end %>

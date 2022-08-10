@@ -1,0 +1,37 @@
+
+<div class="hide-item">
+<%= form_with do |f| %>
+  <div class="form-group">
+    <%= f.label :first_name ,"First Name"%>
+    <%= f.text_field :first_name, value: "#{@user.first_name}", class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, value: "#{@user.last_name}", class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :city %>
+    <%= f.text_field :city, value: "#{@user.city}", class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :dob %>
+    <%= f.date_field :dob, value: "#{@user.dob.to_date}",  class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, value: "#{@user.email}", class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    
+    <%= link_to '/confirm', class: 'btn btn-success confirm-btn' , :remote => true  do %>
+        <%= 'Proceed' %>
+    <% end %>
+    <%= link_to ("Back"), accounts_path, class:"btn btn-outline-success my-2 my-sm-0"%> 
+
+  </div>
+<% end %>
+</div>

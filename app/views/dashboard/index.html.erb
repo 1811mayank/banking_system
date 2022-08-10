@@ -1,0 +1,58 @@
+<br>
+<div class='search-area'>
+   <h3>Search User</h3>
+   <%= form_tag search_user_path, remote: true, method: :get do %>
+     <div class="form-group row">
+       <div class="col-sm-9 no-right-padding">
+         <%= text_field_tag :user, params[:user], placeholder: "Name or email", autofocus: true, class: "form-control form-control-lg" %>
+       </div>
+       <div class="col-sm-3 no-left-padding">
+         <%= button_tag type: :submit, class: "btn btn-success" do %>
+           search
+         <% end %>
+       </div>
+     </div>
+   <% end %>
+ </div>
+
+ <div id="user-results">
+
+ </div>
+ <br>
+<div class="container content-center">
+    <div class="row justify-content-center">
+        <div class="col">
+            <%= "Customer Id" %> 
+        </div>
+        <div class="col">
+            <%= "Name:" %> 
+        </div>
+        <div class="col">
+            <%= "Details" %> 
+        </div>
+        <div class="col">
+            <%= "Transactions" %> 
+        </div>
+    </div>
+    <br>
+    
+    <% @users.each do |user|%>
+        <div class="row justify-content-center">
+            <div class="col">
+                <%= user.id%> 
+            </div>
+            <div class="col">
+                <%= "#{user.first_name.capitalize} #{user.last_name.capitalize}"%> 
+            </div>
+            <div class="col">
+                <%= link_to ("User Details"), details_path( id: "#{user.id}"),class:"btn btn-outline-success"%>  
+                
+            </div>
+            <div class="col">
+                <%= link_to ("Transaction History"), transactions_path( id: "#{user.id}"),class:"btn btn-outline-success"%>  
+            </div>
+        </div>
+        <br>
+    <%end %>
+</div>
+<%= link_to ("Back"), root_path,  class:"btn btn-outline-success my-2 my-sm-0"%> 

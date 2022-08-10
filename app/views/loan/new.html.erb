@@ -1,0 +1,22 @@
+
+<% unless @flag%>
+    <br>
+    <%= "Minimum age to take loan is 25"%>
+<% else %>
+    <%= form_with url: '/loan', method: :post do |f| %>
+        <div class="form-group">
+            <%= f.label :type_of_loan ,"Loan Type"%>
+            <%= f.select :type_of_loan, options_for_select([["Select One", ""], ["1.Home(Interest : 7%)",'1'], ["2.Car(Interest : 8%)", '2'], ["3.Personal(Interest : 12%)",'3'], ["4.Business(Interest : 15%)",'4']]), :class => 'genForm_dropBox' %>
+        </div>
+        <div class="form-group">
+            <%= f.label :duration ,"Duration of Loan:"%>
+            <%= f.number_field :duration %>
+        </div>
+        <div class="form-group">
+            <%= f.label :amount ,"Amount of Loan:"%>
+            <%= f.number_field :amount %>
+        </div>
+        
+        <%= f.submit "Submit" %>
+    <% end %>
+<% end %>

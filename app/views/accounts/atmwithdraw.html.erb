@@ -1,0 +1,27 @@
+<br>
+<div class="container content-center">
+    <div class="row justify-content-center">
+        <h1>ATM Withdrawal</h1>
+    </div>
+    <br>
+    <%= form_with url: "/atmwithdraw/#{@account.id}", method: :patch do |f| %>    
+        <div class="form-group">
+            <%="Your atm number is: #{@atm.number}"%>
+        </div>
+        <div class="form-group">
+            <%= f.label :cvv ,"CVV"%>
+            <%= f.number_field :cvv%>
+        </div>
+        <div class="form-group">
+            <%= f.label :expiry_date ,"Expiry date"%>
+            <%= f.text_field :expiry_date , placeholder: "MM/YYYY"%>
+        </div>
+        <div class="form-group">
+            <%= f.label :amount ,"Enter amount money"%>
+            <%= f.number_field :amount %>
+        </div>
+
+        <%= f.submit "Withdraw", class:"btn btn-outline-success my-2 my-sm-0" %>
+    <% end %>
+    
+</div>

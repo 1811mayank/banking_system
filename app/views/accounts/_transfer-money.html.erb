@@ -1,0 +1,24 @@
+<br>
+<div class="container content-center">
+    <%= form_with url: "transfer/#{@account.id}", method: :patch do |f| %>
+        <div class="form-group">
+            <%= f.label :number ,"Enter account number you want to transfer money:"%>
+            <%= f.number_field :number %>
+        </div>
+        <div class="form-group">
+            <%= f.label :amount ,"Enter amount money"%>
+            <%= f.number_field :amount %>
+        </div>
+        
+    
+        
+        <%= f.submit "Transfer Money", class:"btn btn-outline-success my-2 my-sm-0", data: { confirm: "Press okay to confirm" } %>
+    <% end %>
+    
+    <br>
+   <%= link_to ("Back"), accounts_path, class:"btn btn-outline-success my-2 my-sm-0"%> 
+</div>
+
+
+
+
