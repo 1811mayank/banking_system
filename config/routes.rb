@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   
   devise_for :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'welcome#index'
   resources :accounts
   resources :dashboard
+  resources :loan, only: [:index, :new, :create]
+
   get 'confirm', to: "accounts#confirm"
   get 'details', to: "accounts#details"
   get 'balance', to: "accounts#balance"
@@ -22,6 +23,4 @@ Rails.application.routes.draw do
   get 'transfer/:id', to: "accounts#transfer_money"
   patch 'transfer/:id', to: "accounts#transfer_amount"
   get 'search_user', to: 'dashboard#search'
-  
-  resources :loan, only: [:index, :new, :create]
 end
