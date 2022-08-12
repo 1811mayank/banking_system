@@ -66,6 +66,7 @@ class   AccountsController < ApplicationController
     end
 
     def create 
+        # byebug
         if ((params[:account][:type_of_account] == 'Saving' && params[:account][:balance].to_i < 10000) || (params[:account][:type_of_account] == 'Current' && params[:account][:balance].to_i < 100000))
             message_and_redirect(:alert,"Please deposit minimum amount to open account Saving/Current 10000/100000")
         

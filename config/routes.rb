@@ -1,24 +1,18 @@
 Rails.application.routes.draw do
   
-
-  
-  
   devise_for :users
   root 'welcome#index'
   resources :accounts
   resources :dashboard
   resources :loan, only: [:index, :new, :create]
   
-  namespace :api do
-    mount_devise_token_auth_for 'User', at: 'auth', controllers:{
-      sessions: 'api/sessions'
-    }
-    defaults format: :json do
 
-      resources :api, only: [:index]
-    end
-  end
-   
+
+
+
+
+
+
 
   get 'confirm', to: "accounts#confirm"
   get 'details', to: "accounts#details"
@@ -37,4 +31,30 @@ Rails.application.routes.draw do
   get 'transfer/:id', to: "accounts#transfer_money"
   patch 'transfer/:id', to: "accounts#transfer_amount"
   get 'search_user', to: 'dashboard#search'
+
+
+
+
+
+  
+  namespace :api do
+    mount_devise_token_auth_for 'User', at: 'auth', controllers:{
+      sessions: 'api/sessions'
+    }
+    defaults format: :json do
+
+      resources :api, only: [:index]
+      post 'accounts', to: "api#create"
+      get 'details', to: "api#details"
+      get 'balance', to: "api#balance"
+      get 'transactions', to: "api#transactions"
+      post 'deposit', to: "api#deposit"
+      post 'withdraw', to: "api#withdraw"
+      post 'transfer', to: "api#transfer"
+      post 'loan', to: "api#loan"
+      post 'atmwithdraw', to: "api#atmwithdraw"
+    end
+  end
+   
+
 end
