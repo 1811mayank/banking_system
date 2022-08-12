@@ -83,6 +83,10 @@ GEM
       responders
       warden (~> 1.2.3)
     devise-bootstrap-views (1.1.0)
+    devise_token_auth (1.2.0)
+      bcrypt (~> 3.0)
+      devise (> 3.5.2, < 5)
+      rails (>= 4.2.0, < 6.2)
     erubi (1.11.0)
     ffi (1.15.5)
     globalid (1.0.0)
@@ -222,6 +226,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   devise
   devise-bootstrap-views (~> 1.0)
+  devise_token_auth
   jbuilder (~> 2.7)
   listen (~> 3.2)
   puma (~> 4.1)

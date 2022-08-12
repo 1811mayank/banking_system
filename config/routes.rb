@@ -1,10 +1,24 @@
 Rails.application.routes.draw do
   
+
+  
+  
   devise_for :users
   root 'welcome#index'
   resources :accounts
   resources :dashboard
   resources :loan, only: [:index, :new, :create]
+  
+  namespace :api do
+    mount_devise_token_auth_for 'User', at: 'auth', controllers:{
+      sessions: 'api/sessions'
+    }
+    defaults format: :json do
+
+      resources :api, only: [:index]
+    end
+  end
+   
 
   get 'confirm', to: "accounts#confirm"
   get 'details', to: "accounts#details"

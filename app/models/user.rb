@@ -1,10 +1,26 @@
 class User < ApplicationRecord
+            # Include default devise modules.
+           
   has_many :accounts
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-       
+
+  # devise :database_authenticatable, :registerable,
+  #        :recoverable, :rememberable, :validatable
+  #       #  include DeviseTokenAuth::Concerns::User
+  #       # include DeviseTokenAuth::Concerns::ActiveRecordSupport
+  #       include DeviseTokenAuth::Concerns::User
+          #added this line to extend devise model
+         # Include default devise modules. Others available are:
+         # :confirmable, :lockable, :timeoutable and :omniauthable
+         extend Devise::Models #added this line to extend devise model
+         # Include default devise modules. Others available are:
+         # :confirmable, :lockable, :timeoutable and :omniauthable
+         devise :database_authenticatable, :registerable,:recoverable, :rememberable, :trackable, :validatable
+         include DeviseTokenAuth::Concerns::User
+         
+        
+         #  devise :database_authenticatable, :registerable,:recoverable, :rememberable, , :validatable
          
   def self.search(param)
     param.strip!
