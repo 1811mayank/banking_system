@@ -73,7 +73,7 @@
 
 
     <% if current_user.admin? %>
-        <%= link_to ("Back"), dashboard_index_path, class:"btn btn-outline-success my-2 my-sm-0"%>
+        <%= link_to ("Back"), admin_index_path, class:"btn btn-outline-success my-2 my-sm-0"%>
     <% else %>
         <%= link_to ("Back"), accounts_path, class:"btn btn-outline-success my-2 my-sm-0"%> 
     <% end %>

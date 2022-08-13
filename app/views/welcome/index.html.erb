@@ -4,7 +4,7 @@
   </div>
   <div class="row justify-content-center">
       <% if user_signed_in? && current_user.admin?%>
-        <%= link_to ("Dashboard"), dashboard_index_path,  class:"btn btn-outline-success my-2 my-sm-0"%> 
+        <%= link_to ("Dashboard"), admin_index_path,  class:"btn btn-outline-success my-2 my-sm-0"%> 
       <% elsif user_signed_in?%>
           <%= link_to ("User Board"), accounts_path, class:"btn btn-outline-success my-2 my-sm-0"%> 
       <% end %>

@@ -1,5 +1,5 @@
-class DashboardController < ApplicationController
-  before_action :check_signed_in?
+class AdminController < ApplicationController
+  before_action :authenticate_user!
 
     def index
         @users = User.where(admin: false)
@@ -10,27 +10,20 @@ class DashboardController < ApplicationController
         @users = User.search(params[:user])
         if @users
           respond_to do |format|
-            format.js { render partial: 'dashboard/user_result' }
+            format.js { render partial: 'admin/user_result' }
           end
           
         else
           respond_to do |format|
             flash.now[:alert] = "Couldn't find user"
-            format.js { render partial: 'dashboard/user_result' }
+            format.js { render partial: 'admin/user_result' }
           end
         end    
       else
         respond_to do |format|
           flash.now[:alert] = "Please enter a user name or email to search"
-          format.js { render partial: 'dashboard/user_result' }
+          format.js { render partial: 'admin/user_result' }
         end
-      end
-    end
-
-    def check_signed_in?
-      unless user_signed_in?
-        flash[:alert] = "Please sign in or sign up."
-        redirect_to root_path
       end
     end
 end

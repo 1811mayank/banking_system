@@ -8,4 +8,7 @@ class Account < ApplicationRecord
     validates_uniqueness_of :number
     validates :number,  numericality: true
     validates_length_of :number, :maximum => 10, :minimum => 10
+
+    validates_with AccountValidator
+
 end

@@ -39,6 +39,15 @@
             <div class="col">
                 <%= "Type: #{account.type_of_account}"%>
             </div>
+            <div class="col">
+                <%= "Atm number: #{account.atm.number}"%>
+            </div>
+            <div class="col">
+                <%= "Atm cvv: #{account.atm.cvv}"%>
+            </div>
+            <div class="col">
+                <%= "Atm Expiry: #{account.atm.expiry_date.strftime("%m/%Y").to_s}"%>
+            </div>
         </div>
         </div>
     <% end%>
@@ -46,7 +55,7 @@
     <div class="form-group">
         
         <% if current_user.admin? %>
-            <%= link_to ("Back"), dashboard_index_path, class:"btn btn-outline-success my-2 my-sm-0"%>
+            <%= link_to ("Back"), admin_index_path, class:"btn btn-outline-success my-2 my-sm-0"%>
         <% else %>
             <%= link_to ("Back"), accounts_path, class:"btn btn-outline-success my-2 my-sm-0"%> 
         <% end %> 

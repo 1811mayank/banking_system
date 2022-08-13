@@ -11,7 +11,7 @@
             </a>
             <div class="dropdown-menu">
                 <% @accounts.each do |account|%>
-                    <%= link_to (account.number), "/transaction/#{account.id}", class:"dropdown-item custom-1", :remote => true  %>
+                    <%= link_to (account.number), "/transactions/#{account.id}", class:"dropdown-item custom-1", :remote => true  %>
                 <% end %>
             </div>
         </div>
