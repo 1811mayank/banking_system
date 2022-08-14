@@ -1,4 +1,4 @@
-class Create < ActiveRecord::Migration[6.0]
+class CreateTables < ActiveRecord::Migration[6.0]
   def change
     create_table :branches do |t|
       t.string :name
@@ -15,6 +15,7 @@ class Create < ActiveRecord::Migration[6.0]
       t.decimal :amount
       t.string :from
       t.string :where
+      t.decimal :balance
       t.string :remark
     end
   
@@ -35,6 +36,19 @@ class Create < ActiveRecord::Migration[6.0]
       t.references :account, index: true, foreign_key: true
       t.timestamps null: false
     end
+
+    create_table :loan_types do |t|
+      t.string :name
+      t.integer  :interest
+      t.timestamps null: false
+    end
     
+    create_table :loans do |t|
+      t.integer  :duration
+      t.references :loan_type, index: true, foreign_key: true
+      t.references :account, index: true, foreign_key: true
+      t.bigint :amount
+      t.timestamps null: false
+    end
   end
 end

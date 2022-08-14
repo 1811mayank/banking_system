@@ -11,10 +11,8 @@ class   Api::UserController < Api::ApplicationController
         @user = current_user
         @account = Account.new(user_id: @user.id, type_of_account: params[:account][:type_of_account], branch_id: (params[:account][:branch_id]).to_i,balance: (params[:account][:balance]).to_f, number: rand(1000000000 .. 9999999999))
         if @account.save
-            Transaction.create(type_of_transaction: "Direct", medium: "Deposit",account_id: @account.id,amount: (params[:account][:balance]).to_f, where: (@account.number).to_s, remark: "Opening balance", balance: @account.balance)
-            @atm = Atm.create(account_id: @account.id,expiry_date: DateTime.now.next_year(5).to_date,cvv: rand(100 .. 999),number: rand(1000000000000000 .. 9999999999999999))
             render json: {
-                "notice": "Account has been created successfully. Your account number is #{@account.number}.\nYour atm details are ATM number: #{@atm.number}, CVV: #{@atm.cvv}, Expiry date: #{@atm.expiry_date.strftime("%m/%Y")}"
+                "notice": "Account has been created successfully."
             }
         else
             render json: {
