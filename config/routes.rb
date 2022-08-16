@@ -23,18 +23,18 @@ Rails.application.routes.draw do
   patch 'deposit/:id', to: "transactions#deposit_amount"
 
   # withdrawal
-  get 'withdraw', to: "accounts#withdraw"
-  get 'withdraw/:id', to: "accounts#withdraw_money"
-  patch 'withdraw/:id', to: "accounts#withdraw_amount"
+  get 'withdraw', to: "transactions#withdraw"
+  get 'withdraw/:id', to: "transactions#withdraw_money"
+  patch 'withdraw/:id', to: "transactions#withdraw_amount"
 
   # Atm withdrawal 
-  get 'atmwithdraw/:id', to: "accounts#atmwithdraw"
-  patch 'atmwithdraw/:id', to: "accounts#atmwithdraw_amount"
+  get 'atmwithdraw/:id', to: "transactions#atmwithdraw"
+  patch 'atmwithdraw/:id', to: "transactions#atmwithdraw_amount"
 
   # money transfer
-  get 'transfer', to: "accounts#transfer"
-  get 'transfer/:id', to: "accounts#transfer_money"
-  patch 'transfer/:id', to: "accounts#transfer_amount"
+  get 'transfer', to: "transactions#transfer"
+  get 'transfer/:id', to: "transactions#transfer_money"
+  patch 'transfer/:id', to: "transactions#transfer_amount"
 
   # search user in admin  
   get 'search_user', to: 'admin#search'
@@ -47,15 +47,15 @@ Rails.application.routes.draw do
     defaults format: :json do
 
       resources :user, only: [:index]
-      post 'accounts', to: "user#create"
+      post 'accounts', to: "accounts#create"
       get 'details', to: "user#details"
-      get 'balance', to: "user#balance"
-      get 'transactions', to: "user#transactions"
-      post 'deposit', to: "user#deposit"
-      post 'withdraw', to: "user#withdraw"
-      post 'transfer', to: "user#transfer"
-      post 'loan', to: "user#loan"
-      post 'atmwithdraw', to: "user#atmwithdraw"
+      get 'balance', to: "accounts#balance"
+      get 'transactions', to: "transactions#transactions"
+      post 'deposit', to: "transactions#deposit"
+      post 'withdraw', to: "accounts#withdraw"
+      post 'transfer', to: "accounts#transfer"
+      post 'loan', to: "loan#loan"
+      post 'atmwithdraw', to: "accounts#atmwithdraw"
     end
   end
    
