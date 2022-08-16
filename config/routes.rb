@@ -18,23 +18,23 @@ Rails.application.routes.draw do
   resources :transactions
 
   # deposit
-  get 'deposit', to: "transactions#deposit"
-  get 'deposit/:id', to: "transactions#deposit_money"
-  patch 'deposit/:id', to: "transactions#deposit_amount"
+  get 'deposit', to: "accounts#deposit"
+  get 'deposit/:id', to: "accounts#deposit_money"
+  patch 'deposit/:id', to: "accounts#deposit_amount"
 
-  # withdrawal
-  get 'withdraw', to: "transactions#withdraw"
-  get 'withdraw/:id', to: "transactions#withdraw_money"
-  patch 'withdraw/:id', to: "transactions#withdraw_amount"
+  # withdrawals
+  get 'withdraw', to: "accounts#withdraw"
+  get 'withdraw/:id', to: "accounts#withdraw_money"
+  patch 'withdraw/:id', to: "accounts#withdraw_amount"
 
   # Atm withdrawal 
-  get 'atmwithdraw/:id', to: "transactions#atmwithdraw"
-  patch 'atmwithdraw/:id', to: "transactions#atmwithdraw_amount"
+  get 'atmwithdraw/:id', to: "accounts#atmwithdraw"
+  patch 'atmwithdraw/:id', to: "accounts#atmwithdraw_amount"
 
   # money transfer
-  get 'transfer', to: "transactions#transfer"
-  get 'transfer/:id', to: "transactions#transfer_money"
-  patch 'transfer/:id', to: "transactions#transfer_amount"
+  get 'transfer', to: "accounts#transfer"
+  get 'transfer/:id', to: "accounts#transfer_money"
+  patch 'transfer/:id', to: "accounts#transfer_amount"
 
   # search user in admin  
   get 'search_user', to: 'admin#search'

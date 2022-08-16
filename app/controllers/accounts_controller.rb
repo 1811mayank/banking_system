@@ -30,7 +30,82 @@ class   AccountsController < ApplicationController
         
     end
 
-    
+    # deposit
+    def deposit
+        @accounts = current_user.accounts
+    end
+
+    def deposit_money
+        @account = Account.find(params[:id])
+        respond_partial("deposit-money")
+    end
+
+    def deposit_amount
+        @account = Account.find(params[:id])
+        if @account.type_of_account == "Loan"
+            loan_deposit
+        else
+            direct_transaction
+        end
+    end
+
+    # direct withdrawal
+    def withdraw
+        
+    end
+
+    def withdraw_money
+        respond_partial("withdraw-money")
+    end
+
+    def withdraw_amount
+        @account.transaction do
+            withdrawal_transaction
+        end
+    end
+
+    # transfer money
+    def transfer
+        
+    end
+
+    def transfer_money
+        respond_partial("transfer-money")
+    end
+
+    def transfer_amount
+        unless Account.find_by(number: (params[:number]).to_i)
+            message_and_redirect(:alert,"Incorrect Account number")
+        else
+            @account = Account.find(params[:id])
+            @account.transaction do
+                transfer_transaction
+            end
+        end
+    end
+
+    # atm withdrawal
+    def atmwithdraw
+        @atm = @account.atm
+    end
+
+    def atmwithdraw_amount
+        @atm = @account.atm
+        if params[:cvv].to_i != @atm.cvv
+            message_and_redirect(:alert,"Incorrect CVV")
+
+        elsif params[:expiry_date] != @atm.expiry_date.strftime("%m/%Y").to_s
+            message_and_redirect(:alert,"Incorrect Expiry date")
+
+        elsif params[:amount].to_i  > 20000
+            message_and_redirect(:alert,"You can only withdraw money less then 20000")
+
+        else
+            @account.transaction do
+                atm_transaction
+            end
+        end
+    end
 
 
     private
@@ -62,7 +137,64 @@ class   AccountsController < ApplicationController
         redirect_to accounts_path
     end
 
+    def direct_transaction 
+        @account.balance = @account.balance + params[:amount].to_f
+        if @account.save
+            Transaction.create(type_of_transaction: "Direct", medium: "Deposit",account_id: @account.id,amount: (params[:amount]).to_f, where: (@account.number).to_s,balance: @account.balance)
+            message_and_redirect(:notice,"You have successfully deposited your money") 
+        else
+            message_and_redirect(:alert,"#{@account.errors.each{|error| p error}}")
+        end
+    end
+
+    def loan_deposit
+        @account.balance = @account.balance - params[:amount].to_f
+        if @account.save
+            Transaction.create(type_of_transaction: "Direct", medium: "Deposit",account_id: @account.id,amount: (params[:amount]).to_f, where: (@account.number).to_s, balance: @account.balance)
+            message_and_redirect(:notice,"You have successfully deposited your loan installment")
+        else 
+            message_and_redirect(:alert,"#{@account.errors.each{|error| p error}}")
+        end
+    end
     
+    def transfer_transaction
+        @account.balance = @account.balance - params[:amount].to_f
+        if @account.save
+            Transaction.create(type_of_transaction: "Direct", medium: "Transfer",account_id: @account.id,amount: (params[:amount]).to_f, from: (@account.number).to_s, where: (params[:number]).to_s,balance: @account.balance)
+            @account1 = Account.find_by(number: (params[:number]).to_i)
+            @account1.balance = @account.balance + params[:amount].to_f
+            @account1.save
+            Transaction.create(type_of_transaction: "Direct", medium: "Credited",account_id: @account1.id,amount: (params[:amount]).to_f, from: (@account.number).to_s, where: (params[:number]).to_s,balance: @account.balance)
+            message_and_redirect(:notice,"You have successfully Transfered your money")
+        else 
+            message_and_redirect(:alert,"#{@account.errors.each{|error| p error}}")
+        end
+    end
+
+    def atm_transaction
+        @account.balance = @account.balance - params[:amount].to_f
+        if @account.save
+            Transaction.create(type_of_transaction: "Indirect", medium: "Atm Withdrawal",account_id: @account.id,amount: (params[:amount]).to_f, from: (@account.number).to_s,balance: @account.balance)
+            if @account.transactions.where(type_of_transaction: "Indirect").count > 5 && @account.type_of_account == "Saving"
+                @account.balance = @account.balance - 500.00
+                @account.save
+                Transaction.create(type_of_transaction: "Direct",account_id: @account.id,amount: (500).to_f, from: (@account.number).to_s, remark: "penalty charged",balance: @account.balance)
+            end
+            message_and_redirect(:notice,"You have successfully withdraw your money")
+        else
+            message_and_redirect(:alert,"#{@account.errors.each{|error| p error}}")
+        end
+    end
+
+    def withdrawal_transaction
+        @account.balance = @account.balance - params[:amount].to_f
+        if @account.save
+        Transaction.create(type_of_transaction: "Direct", medium: "Withdrawal",account_id: @account.id,amount: (params[:amount]).to_f, from: (@account.number).to_s, balance: @account.balance)
+        message_and_redirect(:notice,"You have successfully withdraw your money")
+        else 
+            message_and_redirect(:alert,"#{@account.errors.each{|error| p error}}")
+        end   
+    end
 
     
 end
